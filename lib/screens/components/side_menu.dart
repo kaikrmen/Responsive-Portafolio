@@ -67,6 +67,7 @@ class SideMenu extends StatelessWidget {
                       color: Color(0xFF24242E),
                       child: Row(
                         children: [
+                          Spacer(),
                           IconButton(onPressed: () {
 
                           },
@@ -82,12 +83,7 @@ class SideMenu extends StatelessWidget {
                           },
                               icon: SvgPicture.asset('assets/icons/twitter.svg')
                           ),
-
-                          IconButton(onPressed: () {
-
-                          },
-                              icon: SvgPicture.asset('assets/icons/fi-xnsuxl-discord-alt.svg'),
-                          ),
+                          Spacer(),
                         ],
                       ),
                     )
