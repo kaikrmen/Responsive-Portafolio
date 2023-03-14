@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:portafolio/constants.dart';
 import 'package:portafolio/screens/main/main_screen.dart';
 
+import 'components/Recommendations.dart';
 import 'components/heighlights.dart';
 import 'components/home_banner.dart';
 import 'components/my_projects.dart';
@@ -17,20 +17,13 @@ class HomeScreen extends StatelessWidget {
         HomeBanner(),
         HighLightsInfo(),
         MyProjects(),
-        Text(
-            'Recommendations',
-            style: Theme.of(context).textTheme.headlineSmall,
-        ),
+        Recommendations()
 
-        Container(
-          width: 400,
-          padding: EdgeInsets.all(defaultPadding),
-          color: secondaryColor,
-        ),
       ],
     );
   }
 }
+
 
 
 
