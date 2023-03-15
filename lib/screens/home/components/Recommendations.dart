@@ -22,21 +22,24 @@ class Recommendations extends StatelessWidget {
             style: Theme.of(context).textTheme.headline6,
           ),
           const SizedBox(height: defaultPadding),
-          SingleChildScrollView(
+
+        SizedBox(
+          height: 300.0,
+          child: ListView.builder(
+            primary: false,
             scrollDirection: Axis.horizontal,
-            dragStartBehavior: DragStartBehavior.down,
-            child: Row(
-              children: List.generate(
-                demo_recommendations.length,
-                    (index) => Padding(
-                  padding: const EdgeInsets.only(right: defaultPadding),
-                  child: RecommendationCard(
-                    recommendation: demo_recommendations[index],
-                  ),
-                ),
-              ),
-            ),
-          ),
+            shrinkWrap: true,
+            itemCount: demo_recommendations.length,
+            itemBuilder: (context, index) {
+                  return Padding(
+                    padding: const EdgeInsets.only(right: defaultPadding),
+                    child: RecommendationCard(
+                      recommendation: demo_recommendations[index],
+                    ),
+                  );
+                },),
+        )
+
         ],
       ),
     );

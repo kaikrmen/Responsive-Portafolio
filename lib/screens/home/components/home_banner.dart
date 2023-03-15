@@ -1,5 +1,6 @@
 import 'package:animated_text_kit/animated_text_kit.dart';
 import 'package:flutter/material.dart';
+import 'package:portafolio/responsive.dart';
 
 import '../../../constants.dart';
 
@@ -13,7 +14,9 @@ class HomeBanner extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return AspectRatio(
-      aspectRatio: 3,
+      aspectRatio: Responsive.isMobile(context)
+          ? 2.5
+          : 3,
       child: Stack(
         fit: StackFit.expand,
         children: [
@@ -30,14 +33,22 @@ class HomeBanner extends StatelessWidget {
               children: [
                 Text(
                   "Discover my Amazing \nArt Space!",
-                  style: Theme.of(context).textTheme.displaySmall!.copyWith(
+                  style: Responsive.isDesktop(context)
+                      ? Theme.of(context).textTheme.headlineLarge!.copyWith(
                     fontWeight: FontWeight.bold,
                     color: Colors.white,
-                  ),
+                  )
+                      : Theme.of(context).textTheme.headlineSmall!.copyWith(
+                    fontWeight: FontWeight.bold,
+                    color: Colors.white,
+                  )
                 ),
+                if(Responsive.isMobileLarge(context))
+                  SizedBox(height: defaultPadding / 2),
                 MyBuildAnimatedText(),
                 SizedBox(height: defaultPadding),
-                ElevatedButton(
+                if(!Responsive.isMobileLarge(context))
+                  ElevatedButton(
                   onPressed: () {},
                   style: TextButton.styleFrom(
                     padding: EdgeInsets.symmetric(
@@ -68,32 +79,50 @@ class MyBuildAnimatedText extends StatelessWidget {
   Widget build(BuildContext context) {
     return DefaultTextStyle(
       // it applies same style to all the widgets under it
-      style: Theme.of(context).textTheme.subtitle1!,
+      maxLines: 1,
+      style: Theme.of(context).textTheme.titleMedium!,
       child: Row(
         children: [
-          FlutterCodedText(),
-          SizedBox(width: defaultPadding / 2),
+          if(!Responsive.isMobileLarge(context))
+            FlutterCodedText(),
+          if(!Responsive.isMobileLarge(context))
+            SizedBox(width: defaultPadding / 2),
           Text("I build "),
-          AnimatedTextKit(
-            animatedTexts: [
-              TyperAnimatedText(
-                "responsive web and mobile app.",
-                speed: Duration(milliseconds: 60),
-              ),
-              TyperAnimatedText(
-                "a BMI calculator App.",
-                speed: Duration(milliseconds: 60),
-              ),
-              TyperAnimatedText(
-                "a FlashChat",
-                speed: Duration(milliseconds: 60),
-              ),
-            ],
-          ),
-          SizedBox(width: defaultPadding / 2),
-          FlutterCodedText(),
+          Responsive.isMobile(context)
+              ? Expanded(child: AnimatedText())
+              : AnimatedText(),
+          if(!Responsive.isMobileLarge(context))
+            SizedBox(width: defaultPadding / 2),
+          if(!Responsive.isMobileLarge(context))
+            FlutterCodedText(),
         ],
       ),
+    );
+  }
+}
+
+class AnimatedText extends StatelessWidget {
+  const AnimatedText({
+    super.key,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return AnimatedTextKit(
+      animatedTexts: [
+        TyperAnimatedText(
+          "responsive web and mobile app.",
+          speed: Duration(milliseconds: 60),
+        ),
+        TyperAnimatedText(
+          "a BMI calculator App.",
+          speed: Duration(milliseconds: 60),
+        ),
+        TyperAnimatedText(
+          "a FlashChat",
+          speed: Duration(milliseconds: 60),
+        ),
+      ],
     );
   }
 }

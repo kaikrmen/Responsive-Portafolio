@@ -1,4 +1,5 @@
 import 'package:flutter/cupertino.dart';
+import 'package:portafolio/responsive.dart';
 
 import '../../../components/animated_counter.dart';
 import '../../../constants.dart';
@@ -13,7 +14,31 @@ class HighLightsInfo extends StatelessWidget {
   Widget build(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: defaultPadding),
-      child: Row(
+      child: Responsive.isMobileLarge(context)
+          ? Column(
+        children: [
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              HeighLight(
+                counter: AnimatedCounter(
+                  value: 20,
+                  text: '+',
+                ),
+                label: "Github Procjects",
+              ),
+              HeighLight(
+                counter: AnimatedCounter(
+                  value: 25,
+                  text: '+',
+                ),
+                label: "Procject's",
+              )
+            ],
+          )
+        ],
+      )
+          : Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
           HeighLight(

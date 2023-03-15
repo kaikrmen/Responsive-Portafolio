@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:portafolio/responsive.dart';
 import 'package:portafolio/screens/home/components/project_card.dart';
 
 import '../../../constants.dart';
@@ -21,22 +22,43 @@ class MyProjects extends StatelessWidget {
         SizedBox(
           height: defaultPadding,
         ),
-        GridView.builder(
-          shrinkWrap: true,
-          physics: NeverScrollableScrollPhysics(),
-          itemCount: demo_projects.length,
-          gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-              crossAxisCount:  3,
-              childAspectRatio: 1.3,
-              crossAxisSpacing: defaultPadding,
-              mainAxisSpacing: defaultPadding
-          ),
-          itemBuilder: (context, index) =>
-              ProjectCard(
-                project: demo_projects[index],
-              ),
+        Responsive(
+            mobile: ProjectsGridView(
+              crossAxisCount: 1,
+              childApectRatio: 1.8,),
+            mobileLarge: ProjectsGridView(crossAxisCount: 2),
+            tablet: ProjectsGridView(childApectRatio: 1.1,),
+            desktop: ProjectsGridView()
         ),
       ],
+    );
+  }
+}
+
+class ProjectsGridView extends StatelessWidget {
+  const ProjectsGridView({
+    super.key, this.crossAxisCount = 3, this.childApectRatio = 1.3,
+  });
+
+
+  final int crossAxisCount;
+  final double childApectRatio;
+  @override
+  Widget build(BuildContext context) {
+    return GridView.builder(
+      shrinkWrap: true,
+      physics: NeverScrollableScrollPhysics(),
+      itemCount: demo_projects.length,
+      gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+          crossAxisCount:  crossAxisCount,
+          childAspectRatio: childApectRatio,
+          crossAxisSpacing: defaultPadding,
+          mainAxisSpacing: defaultPadding
+      ),
+      itemBuilder: (context, index) =>
+          ProjectCard(
+            project: demo_projects[index],
+          ),
     );
   }
 }
